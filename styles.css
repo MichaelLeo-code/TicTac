@@ -44,22 +44,50 @@ justify-content: center; */
 }
 
 
+/* styles.css */
+body {
+    background-color: #222;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
 .slider-container {
-    width: 50%;
-    margin: 50px auto;
+    margin: 20px;
 }
-.slider {
+
+.slider, .number-input {
+    -webkit-appearance: none;
+    width: calc(100% - 40px); /* Subtracting 40px for margin */
+    height: 25px;
+    background: #444;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Added margin */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+.slider::-webkit-slider-thumb, .number-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+.slider-value{
+    display: inline-block;
     width: 100%;
-}
-.number-input {
-    width: 80px;
+    text-align: center;
     margin-left: 10px;
 }
 
-.slider-value {
-    display: inline-block;
-    width: 50px;
-    text-align: center;
-    font-size: 14px;
-    margin-left: 10px;
+#output {
+    margin-top: 20px;
 }

@@ -6,7 +6,7 @@ function createTable(x, y) {
     }
 
     let table = document.createElement('table')
-    table.className = 'table'
+    table.classList.add('table', 'mdc-layout-grid__cell', 'mdc-layout-grid__cell--span-4')
 
     //MAP OF TABLE
     var map = Array.from({ length: y }, (_, index)=> Array(x).fill(0))
@@ -98,6 +98,8 @@ function checkForWin(map, cross){
 function printWinner(cross){
     const string = cross ? "CROSSES" : "CIRCLES"
     console.log("The winner is " + string)
+    let output = document.getElementById('output')
+    output.textContent = "The winner is " + string
 }
 
 document.body.appendChild(createTable(3, 3))
@@ -109,12 +111,12 @@ const output = document.getElementById("sliderValue")
 const checkLength_output = document.getElementById("checkLengthValue")
 
 slider.addEventListener("input", () => {
-    output.innerHTML = slider.value
+    output.innerHTML = `Grid ${slider.value} by ${slider.value}`
     const tableToChange = document.body.getElementsByClassName('table')[0]
     const dim = parseInt(slider.value)
     tableToChange.parentNode.replaceChild(createTable(dim, dim), tableToChange)
 })
 
 checkLength.addEventListener("input", () => {
-    checkLength_output.innerHTML = checkLength.value
+    checkLength_output.innerHTML = checkLength.value + ' in a row to win'
 })
