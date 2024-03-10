@@ -10,7 +10,6 @@ function createTable(x, y) {
 
     //MAP OF TABLE
     var map = Array.from({ length: y }, (_, index)=> Array(x).fill(0))
-    console.log(Array(x).fill(0).length);
 
     for (let i = 0; i < y; i++) {
         let row = table.insertRow()
@@ -61,19 +60,39 @@ function checkForWin(map, cross){
     )) return printWinner(cross)
 
     //diagonal left to right check
-    if (map.some((row, i) => 
+    let consecutiveMatches = 0;
+    map.some((row, i) => 
         row.slice(0, -2).some((element, j) => 
-            element === check && map[i+1]?.[j+1] === check && map[i+2]?.[j+2] === check
+            {
+                for (let k = 0; k < cl; k++) {
+                    if (map[i + k]?.[j + k] === check) {
+                        consecutiveMatches++
+                    } else {
+                        break; // If the consecutive match is broken, exit the loop
+                    }
+                    if (consecutiveMatches === cl) return printWinner(cross)
+                }
+                consecutiveMatches = 0
+            }
         )
-    )) return printWinner(cross)
+    )
 
-    console.log(map)
     //diagonal right to left check
-    if (rotatedMap.some((row, i) => 
+    rotatedMap.some((row, i) => 
         row.slice(0, -2).some((element, j) => 
-            element === check && rotatedMap[i+1]?.[j+1] === check && rotatedMap[i+2]?.[j+2] === check
+            {
+                for (let k = 0; k < cl; k++) {
+                    if (rotatedMap[i + k]?.[j + k] === check) {
+                        consecutiveMatches++
+                    } else {
+                        break; // If the consecutive match is broken, exit the loop
+                    }
+                    if (consecutiveMatches === cl) return printWinner(cross)
+                }
+                consecutiveMatches = 0
+            }
         )
-    )) return printWinner(cross)
+    )
 }
 
 function printWinner(cross){
