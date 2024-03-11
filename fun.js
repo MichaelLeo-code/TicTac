@@ -117,7 +117,7 @@ const slider = document.getElementById("fieldSize")
 const checkLength = document.getElementById("checkLength")
 const output = document.getElementById("sliderValue")
 const checkLength_output = document.getElementById("checkLengthValue")
-
+const button = document.getElementById("button")
 
 slider.addEventListener("input", () => {
     output.innerHTML = `Grid ${slider.value} by ${slider.value}`
@@ -128,4 +128,10 @@ slider.addEventListener("input", () => {
 
 checkLength.addEventListener("input", () => {
     checkLength_output.innerHTML = checkLength.value + ' in a row to win'
+})
+
+button.addEventListener("click", () => {
+    const tableToChange = document.body.getElementsByClassName('table')[0]
+    const dim = parseInt(slider.value)
+    tableToChange.parentNode.replaceChild(createTable(dim, dim), tableToChange)
 })

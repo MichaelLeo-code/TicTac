@@ -3,11 +3,13 @@ class Game{
     #checkLength
     #output
     #checkLength_output
+    #winnerText
     constructor(){
         this.#slider = document.getElementById("fieldSize")
         this.#checkLength = document.getElementById("checkLength")
         this.#output = document.getElementById("sliderValue")
         this.#checkLength_output = document.getElementById("checkLengthValue")
+        this.#winnerText = document.getElementById('output')
     }
 
     initializeEventListeners(){
@@ -27,8 +29,6 @@ class Game{
     }
 
     createTable(x, y){
-        output.textContent = "It is CROSSES turn"
-
         let cross = false
         if (x <= 0 || y <= 0) {
             console.error("invalid dimensions")
@@ -50,6 +50,7 @@ class Game{
                         cross = !cross
                         cell.appendChild(this.draw(cross))
                         cross ? map[i][j] = 1 : map[i][j] = 2;
+                        this.#winnerText.textContent = cross ? "It is CIRCLES turn" : "It is CROSSES turn" 
                         this.checkForWin(map, cross)
                     }
                     else console.log("can't make a move twice on the same cell")
@@ -123,8 +124,6 @@ class Game{
                 }
             )
         )
-        
-        output.textContent = cross ? "It is CIRCLES turn" : "It is CROSSES turn" 
     }
       
     printWinner(cross){
@@ -132,6 +131,11 @@ class Game{
         console.log("The winner is " + string)
         let output = document.getElementById('output')
         output.textContent = "The winner is " + string
+
+        //redraw the table to remove all the listeners
+        let old_element = document.getElementsByClassName("table")[0]
+        var new_element = old_element.cloneNode(true)
+        old_element.parentNode.replaceChild(new_element, old_element);
     }
 }
 
