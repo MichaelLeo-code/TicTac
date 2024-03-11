@@ -4,12 +4,14 @@ class Game{
     #output
     #checkLength_output
     #winnerText
+    #button
     constructor(){
         this.#slider = document.getElementById("fieldSize")
         this.#checkLength = document.getElementById("checkLength")
         this.#output = document.getElementById("sliderValue")
         this.#checkLength_output = document.getElementById("checkLengthValue")
         this.#winnerText = document.getElementById('output')
+        this.#button = document.getElementById("button")
     }
 
     initializeEventListeners(){
@@ -21,6 +23,11 @@ class Game{
         })
         this.#checkLength.addEventListener("input", () => {
             this.#checkLength_output.innerHTML = this.#checkLength.value + ' in a row to win'
+        })
+        this.#button.addEventListener("click", () => {
+            const tableToChange = document.body.getElementsByClassName('table')[0]
+            const dim = parseInt(this.#slider.value)
+            tableToChange.parentNode.replaceChild(createTable(dim, dim), tableToChange)
         })
     }
 
