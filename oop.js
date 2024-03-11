@@ -27,6 +27,8 @@ class Game{
     }
 
     createTable(x, y){
+        output.textContent = "It is CROSSES turn"
+
         let cross = false
         if (x <= 0 || y <= 0) {
             console.error("invalid dimensions")
@@ -121,6 +123,8 @@ class Game{
                 }
             )
         )
+        
+        output.textContent = cross ? "It is CIRCLES turn" : "It is CROSSES turn" 
     }
       
     printWinner(cross){

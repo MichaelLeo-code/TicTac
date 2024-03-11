@@ -1,4 +1,6 @@
 function createTable(x, y) {
+    winnerText.textContent = "It is CROSSES turn"
+
     let cross = false
     if (x <= 0 || y <= 0) {
         console.error("invalid dimensions")
@@ -6,7 +8,7 @@ function createTable(x, y) {
     }
 
     let table = document.createElement('table')
-    table.classList.add('table', 'mdc-layout-grid__cell', 'mdc-layout-grid__cell--span-4')
+    table.classList.add('table')
 
     //MAP OF TABLE
     var map = Array.from({ length: y }, (_, index)=> Array(x).fill(0))
@@ -20,10 +22,11 @@ function createTable(x, y) {
                     cross = !cross
                     cell.appendChild(draw(cross))
                     cross ? map[i][j] = 1 : map[i][j] = 2;
+                    winnerText.textContent = cross ? "It is CIRCLES turn" : "It is CROSSES turn" 
                     checkForWin(map, cross)
                 }
                 else console.log("can't make a move twice on the same cell")
-            })
+            }, { once: true })
         }
     }
 
@@ -98,17 +101,23 @@ function checkForWin(map, cross){
 function printWinner(cross){
     const string = cross ? "CROSSES" : "CIRCLES"
     console.log("The winner is " + string)
-    let output = document.getElementById('output')
-    output.textContent = "The winner is " + string
+    winnerText.textContent = "The winner is " + string
+
+    //redraw the table to remove all the listeners
+    let old_element = document.getElementsByClassName("table")[0]
+    var new_element = old_element.cloneNode(true)
+    old_element.parentNode.replaceChild(new_element, old_element);
 }
 
-document.body.appendChild(createTable(3, 3))
+let winnerText = document.getElementById('output')
 
+document.body.appendChild(createTable(3, 3))
 
 const slider = document.getElementById("fieldSize")
 const checkLength = document.getElementById("checkLength")
 const output = document.getElementById("sliderValue")
 const checkLength_output = document.getElementById("checkLengthValue")
+
 
 slider.addEventListener("input", () => {
     output.innerHTML = `Grid ${slider.value} by ${slider.value}`
