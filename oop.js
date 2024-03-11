@@ -27,7 +27,7 @@ class Game{
         this.#button.addEventListener("click", () => {
             const tableToChange = document.body.getElementsByClassName('table')[0]
             const dim = parseInt(this.#slider.value)
-            tableToChange.parentNode.replaceChild(createTable(dim, dim), tableToChange)
+            tableToChange.parentNode.replaceChild(this.createTable(dim, dim), tableToChange)
         })
     }
 
